@@ -325,7 +325,7 @@ const App = () => {
       `,
       team: ["Ritesh Jha", "Aditya Gupta", "Aryan Agrawal", "Khushi Naudiyal"],
       mentor: "Mary Margarat",
-      secondaryImageUrl: "https://lh3.googleusercontent.com/pw/AP1GczNXhkoGuDjmI9JlyPuUxFK2CYwFLAjKNo_kReZtcZ6SdXxWSyA3l9SXnWTBAb9Sy4ES62XAw6wusdqirOpfYNjPXB_0-H3DfL1czBSLSV19tWu_cWow2WyzCMzv42Pv6yKFljMdA9yA-cx4vgDgUf7oCg=w1145-h859-s-no-gm",
+      // secondaryImageUrl: "https://lh3.googleusercontent.com/pw/AP1GczNXhkoGuDjmI9JlyPuUxFK2CYwFLAjKNo_kReZtcZ6SdXxWSyA3l9SXnWTBAb9Sy4ES62XAw6wusdqirOpfYNjPXB_0-H3DfL1czBSLSV19tWu_cWow2WyzCMzv42Pv6yKFljMdA9yA-cx4vgDgUf7oCg=w1145-h859-s-no-gm",
       tertiaryImageUrl: "https://lh3.googleusercontent.com/pw/AP1GczN5tOkZ0XLCwG8Gs6idVUMwRon_by2sPEXInUWmIMjMRbFUDAYL-tQKM5aJqZtB53owG5YXfO7OD2qwWHkB39qxb0WqG99AgLJcMxHxTGkHGbMFsibCimzZ60kS2A_ZoCbFbGSJ1yuumdnCea_s-rOanQ=w1280-h755-s-no-gm"
     }
   ];
