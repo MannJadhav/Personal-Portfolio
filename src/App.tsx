@@ -403,7 +403,7 @@ const App = () => {
               </div>
             </div>
             
-            <div className="lg:col-span-5 relative hidden lg:block">
+            <div className="lg:col-span-5 relative flex justify-center lg:block">
               <div className="relative group">
                 <div className="absolute inset-0 bg-indigo-600 rounded-[60px] rotate-6 group-hover:rotate-3 transition-transform opacity-10"></div>
                 <div className="relative aspect-[4/5] rounded-[60px] bg-slate-100 dark:bg-[#151518] border border-slate-200 dark:border-white/5 overflow-hidden flex items-center justify-center">
