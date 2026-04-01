@@ -13,8 +13,6 @@ import {
   Terminal, 
   User, 
   Cpu,
-  Moon, 
-  Sun,
   ChevronRight,
   Send,
   Download,
@@ -45,14 +43,15 @@ import {
   Play,
   MessageSquare,
   Loader2,
-  CheckCircle2
+  CheckCircle2,
+  Menu
 } from 'lucide-react';
 
 const App = () => {
-  const [darkMode, setDarkMode] = useState(true);
   const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
   const [selectedAward, setSelectedAward] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // Form State
   const [formStatus, setFormStatus] = useState('idle'); // idle, sending, success, error
@@ -67,7 +66,6 @@ const App = () => {
     setFormStatus('sending');
 
     try {
-      // Note: Using a real endpoint like Formspree for the demonstration
       const response = await fetch("https://formspree.io/f/xvgzloww", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -90,9 +88,9 @@ const App = () => {
     }
   };
 
-  // Smooth scroll handler with offset for fixed header
   const scrollToSection = (e, id) => {
     if (e) e.preventDefault();
+    setIsMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
       const offset = 80; 
@@ -128,8 +126,6 @@ const App = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleDarkMode = () => setDarkMode(!darkMode);
-
   const experience = [
     {
       year: "2026 - Present",
@@ -155,6 +151,13 @@ const App = () => {
   ];
 
   const aiStack = ["Python", "TensorFlow", "Scikit-Learn", "pandas", "NumPy", "Keras", "Matplotlib"];
+
+  const techSkills = {
+    languages: ["HTML", "CSS", "JavaScript", "Python", "C"],
+    frameworks: ["React", "Node.js", "Express.js", "WordPress"],
+    databases: ["MySQL", "MongoDB", "MongoDB Atlas"],
+    tools: ["Git", "AWS", "GCP", "OCI", "VS Code", "PyCharm", "Jupyter Notebook"]
+  };
 
   const researchPapers = [
     {
@@ -325,7 +328,6 @@ const App = () => {
       `,
       team: ["Ritesh Jha", "Aditya Gupta", "Aryan Agrawal", "Khushi Naudiyal"],
       mentor: "Mary Margarat",
-      // secondaryImageUrl: "https://lh3.googleusercontent.com/pw/AP1GczNXhkoGuDjmI9JlyPuUxFK2CYwFLAjKNo_kReZtcZ6SdXxWSyA3l9SXnWTBAb9Sy4ES62XAw6wusdqirOpfYNjPXB_0-H3DfL1czBSLSV19tWu_cWow2WyzCMzv42Pv6yKFljMdA9yA-cx4vgDgUf7oCg=w1145-h859-s-no-gm",
       tertiaryImageUrl: "https://lh3.googleusercontent.com/pw/AP1GczN5tOkZ0XLCwG8Gs6idVUMwRon_by2sPEXInUWmIMjMRbFUDAYL-tQKM5aJqZtB53owG5YXfO7OD2qwWHkB39qxb0WqG99AgLJcMxHxTGkHGbMFsibCimzZ60kS2A_ZoCbFbGSJ1yuumdnCea_s-rOanQ=w1280-h755-s-no-gm"
     }
   ];
@@ -355,16 +357,17 @@ const App = () => {
   ];
 
   return (
-    <div className={`${darkMode ? 'dark bg-[#0a0a0c] text-slate-200' : 'bg-white text-slate-900'} transition-colors duration-500 min-h-screen font-sans selection:bg-indigo-500 selection:text-white`}>
+    <div className="dark bg-[#0a0a0c] text-slate-200 transition-colors duration-500 min-h-screen font-sans selection:bg-indigo-500 selection:text-white">
       
       {/* Navigation */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'py-3 backdrop-blur-xl bg-white/80 dark:bg-[#0a0a0c]/80 border-b border-slate-200 dark:border-white/5' : 'py-6 bg-transparent'}`}>
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'py-3 backdrop-blur-xl bg-[#0a0a0c]/80 border-b border-white/5' : 'py-6 bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-8 flex justify-between items-center">
           <div className="flex items-center space-x-3 group cursor-pointer" onClick={(e) => scrollToSection(e, 'home')}>
             <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-black text-sm group-hover:rotate-12 transition-transform shadow-[0_4px_15px_rgba(79,70,229,0.4)]">MJ</div>
-            <span className="text-sm font-black tracking-[0.25em] uppercase dark:text-white group-hover:text-indigo-500 transition-colors">MANN JADHAV</span>
+            <span className="text-sm font-black tracking-[0.25em] uppercase text-white group-hover:text-indigo-500 transition-colors">MANN JADHAV</span>
           </div>
           
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-10">
             {['home', 'experience', 'achievements', 'projects', 'about', 'contact'].map((item) => (
               <a 
@@ -376,10 +379,29 @@ const App = () => {
                 {item}
               </a>
             ))}
-            <div className="h-4 w-[1px] bg-slate-300 dark:bg-white/10"></div>
-            <button onClick={toggleDarkMode} className="text-slate-400 hover:text-indigo-500 transition-colors">
-              {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </button>
+          </div>
+
+          {/* Mobile Actions: Hamburger Toggle */}
+          <div className="flex md:hidden items-center">
+             <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white p-1">
+               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+             </button>
+          </div>
+        </div>
+
+        {/* Mobile Menu Overlay */}
+        <div className={`absolute top-full left-0 w-full bg-[#0a0a0c] border-b border-white/5 transition-all duration-300 overflow-hidden md:hidden ${isMenuOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}>
+          <div className="px-8 py-10 flex flex-col space-y-6">
+            {['home', 'experience', 'achievements', 'projects', 'about', 'contact'].map((item) => (
+              <a 
+                key={item} 
+                href={`#${item}`}
+                onClick={(e) => scrollToSection(e, item)}
+                className={`text-xs font-black tracking-[0.3em] uppercase transition-all ${activeSection === item ? 'text-indigo-500' : 'text-slate-500'}`}
+              >
+                {item}
+              </a>
+            ))}
           </div>
         </div>
       </nav>
@@ -389,11 +411,11 @@ const App = () => {
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-7">
-              <h1 className="text-4xl md:text-[56px] font-black leading-[1.1] tracking-tighter mb-8 dark:text-white uppercase">
+              <h1 className="text-4xl md:text-[56px] font-black leading-[1.1] tracking-tighter mb-8 text-white uppercase">
                 SOFTWARE <br/> ENGINEER <br/> <span className="text-indigo-600">& RESEARCHER.</span>
               </h1>
-              <p className="text-lg text-slate-500 dark:text-slate-400 max-w-xl leading-relaxed mb-10 font-medium text-justify">
-                Information Technology student at <span className="font-bold text-slate-900 dark:text-white underline decoration-indigo-500 decoration-2 underline-offset-4">TCET Mumbai</span>. 
+              <p className="text-lg text-slate-400 max-w-xl leading-relaxed mb-10 font-medium text-justify">
+                Information Technology student at <span className="font-bold text-white underline decoration-indigo-500 decoration-2 underline-offset-4">TCET Mumbai</span>. 
                 Specializing in building high-performance web systems and deep learning applications.
               </p>
               <div className="flex wrap gap-6">
@@ -406,13 +428,13 @@ const App = () => {
             <div className="lg:col-span-5 relative flex justify-center lg:block">
               <div className="relative group">
                 <div className="absolute inset-0 bg-indigo-600 rounded-[60px] rotate-6 group-hover:rotate-3 transition-transform opacity-10"></div>
-                <div className="relative aspect-[4/5] rounded-[60px] bg-slate-100 dark:bg-[#151518] border border-slate-200 dark:border-white/5 overflow-hidden flex items-center justify-center">
+                <div className="relative aspect-[4/5] rounded-[60px] bg-[#151518] border border-white/5 overflow-hidden flex items-center justify-center">
                    <img 
                     src="https://lh3.googleusercontent.com/pw/AP1GczNdqpOh72vezrDoZDgd8zJMeqldE0K-P8f8WtBecYhPCa5jC6fD2I94d-y3GScvCrk-kRTkAx5TzpyKfN8pN_XS9-QsQNu1ISwqAAtWR0r_9N3xLX827K6cL7oqtTnxHOfqdDEtgildHMJK85MEhsHfZw=w859-h859-s-no-gm" 
                     alt="Mann Jadhav" 
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
                    />
-                   <div className="absolute bottom-8 left-8 right-8 bg-white/80 dark:bg-black/50 backdrop-blur-xl p-5 rounded-3xl border border-white/10">
+                   <div className="absolute bottom-8 left-8 right-8 bg-black/50 backdrop-blur-xl p-5 rounded-3xl border border-white/10">
                       <div className="flex justify-between items-center mb-1">
                          <span className="text-[10px] font-black tracking-widest text-indigo-500 uppercase">Current Status</span>
                          <div className="flex space-x-1">
@@ -420,7 +442,7 @@ const App = () => {
                            <div className="w-2 h-2 rounded-full bg-indigo-300"></div>
                          </div>
                       </div>
-                      <p className="text-sm font-bold truncate tracking-tight dark:text-white">Internship @ CITTA Tech</p>
+                      <p className="text-sm font-bold truncate tracking-tight text-white">Internship @ CITTA Tech</p>
                       <p className="text-[10px] text-slate-500 font-medium">Mumbai, India</p>
                    </div>
                 </div>
@@ -431,37 +453,37 @@ const App = () => {
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="py-20 px-8 bg-slate-50 dark:bg-[#0c0c0e]">
+      <section id="experience" className="py-20 px-8 bg-[#0c0c0e]">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col items-center mb-16 text-center">
             <h2 className="text-xs font-black text-indigo-500 uppercase tracking-[0.4em] mb-4">Professional Path</h2>
-            <h3 className="text-4xl font-black tracking-tighter dark:text-white uppercase">EXPERIENCE.</h3>
+            <h3 className="text-4xl font-black tracking-tighter text-white uppercase">EXPERIENCE.</h3>
           </div>
 
           <div className="relative max-w-5xl mx-auto">
-            <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[1px] bg-slate-200 dark:bg-white/10"></div>
+            <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 top-0 bottom-0 w-[1px] bg-white/10"></div>
             <div className="space-y-16">
               {experience.map((exp, i) => (
                 <div key={i} className="relative flex flex-col md:flex-row items-center group">
-                  <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full bg-indigo-600 border-4 border-white dark:border-[#0c0c0e] z-10 group-hover:scale-125 transition-transform shadow-[0_0_15px_rgba(79,70,229,0.5)]"></div>
+                  <div className="absolute left-0 md:left-1/2 md:-translate-x-1/2 w-4 h-4 rounded-full bg-indigo-600 border-4 border-[#0c0c0e] z-10 group-hover:scale-125 transition-transform shadow-[0_0_15px_rgba(79,70,229,0.5)]"></div>
                   <div className={`hidden md:block w-1/2 ${i % 2 === 0 ? 'text-right pr-12' : 'order-last text-left pl-12'}`}>
-                    <span className="text-xl font-black text-slate-300 dark:text-slate-800 tracking-tighter">{exp.year}</span>
+                    <span className="text-xl font-black text-slate-800 tracking-tighter">{exp.year}</span>
                   </div>
                   <div className={`w-full md:w-1/2 pl-8 md:pl-0 ${i % 2 === 0 ? 'md:pl-12' : 'md:pr-12 text-right'}`}>
-                    <div className="p-6 rounded-[32px] bg-white dark:bg-[#111114] border border-slate-200 dark:border-white/5 hover:border-indigo-500/50 transition-all shadow-sm hover:shadow-xl">
+                    <div className="p-6 rounded-[32px] bg-[#111114] border border-white/5 hover:border-indigo-500/50 transition-all shadow-sm hover:shadow-xl">
                       <div className={`flex flex-col ${i % 2 !== 0 ? 'md:items-end' : ''} mb-3`}>
                         <div className="md:hidden mb-2">
                           <span className="text-[10px] font-black px-3 py-1 rounded-full bg-indigo-600/10 text-indigo-500 uppercase tracking-widest">{exp.year}</span>
                         </div>
-                        <h4 className="text-lg font-bold dark:text-white tracking-tight">{exp.role}</h4>
+                        <h4 className="text-lg font-bold text-white tracking-tight">{exp.role}</h4>
                         <div className="flex items-center gap-2 text-indigo-500 font-bold text-[10px] uppercase tracking-wider mt-1">
                           <Building2 className="w-3 h-3" />
                           <span>{exp.company}</span>
-                          <span className="text-slate-300 dark:text-slate-700">•</span>
-                          <span className="text-slate-500 dark:text-slate-500">{exp.location}</span>
+                          <span className="text-slate-700">•</span>
+                          <span className="text-slate-500">{exp.location}</span>
                         </div>
                       </div>
-                      <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium text-justify">{exp.desc}</p>
+                      <p className="text-sm text-slate-400 leading-relaxed font-medium text-justify">{exp.desc}</p>
                     </div>
                   </div>
                 </div>
@@ -474,7 +496,7 @@ const App = () => {
       {/* Achievements Section */}
       <section id="achievements" className="py-20 overflow-hidden relative">
         <div className="max-w-7xl mx-auto px-8 mb-16 text-center">
-          <h2 className="text-4xl font-black tracking-tighter mb-3 dark:text-white uppercase">Achievements & Awards</h2>
+          <h2 className="text-4xl font-black tracking-tighter mb-3 text-white uppercase">Achievements & Awards</h2>
           <div className="h-1 w-12 bg-indigo-600 mx-auto rounded-full"></div>
         </div>
 
@@ -487,18 +509,18 @@ const App = () => {
                 className={`inline-block whitespace-normal w-[350px] md:w-[400px] p-8 md:p-10 rounded-[50px] border-2 transition-all hover:-translate-y-4 shadow-sm hover:shadow-2xl shrink-0 cursor-pointer
                   ${award.style === 'dark' 
                     ? 'bg-slate-900 text-white border-white/5' 
-                    : 'bg-white dark:bg-[#111114] text-slate-900 dark:text-white border-slate-200 dark:border-white/5'}`}
+                    : 'bg-[#111114] text-white border-white/5'}`}
               >
                 <div className="flex items-center space-x-3 mb-6">
-                  <div className={`${award.style === 'dark' ? 'text-indigo-400' : 'text-indigo-500'}`}>
+                  <div className="text-indigo-400">
                     {award.icon}
                   </div>
-                  <h4 className={`text-[11px] font-black uppercase tracking-[0.2em] ${award.style === 'dark' ? 'text-indigo-400' : 'text-indigo-500'}`}>
+                  <h4 className="text-[11px] font-black uppercase tracking-[0.2em] text-indigo-400">
                     {award.type}
                   </h4>
                 </div>
 
-                <div className="relative aspect-[4/3] rounded-3xl bg-slate-100 dark:bg-black/20 overflow-hidden mb-8 border border-slate-200 dark:border-white/5 flex items-center justify-center">
+                <div className="relative aspect-[4/3] rounded-3xl bg-black/20 overflow-hidden mb-8 border border-white/5 flex items-center justify-center">
                   {award.imageUrl ? (
                     <img 
                       src={award.imageUrl} 
@@ -519,7 +541,7 @@ const App = () => {
 
                 <div className="flex flex-col h-[200px]">
                   <h3 className="text-xl font-bold mb-4 leading-tight text-justify">{award.title}</h3>
-                  <p className={`text-sm leading-relaxed mb-8 font-medium ${award.style === 'dark' ? 'text-slate-400' : 'text-slate-500 dark:text-slate-400'} text-justify`}>
+                  <p className="text-sm leading-relaxed mb-8 font-medium text-slate-400 text-justify">
                     {award.desc}
                   </p>
                   <a 
@@ -552,10 +574,10 @@ const App = () => {
               className="absolute inset-0 bg-[#0a0a0c]/90 backdrop-blur-md"
               onClick={() => setSelectedAward(null)}
             ></div>
-            <div className="relative bg-white dark:bg-[#111114] w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[40px] border border-slate-200 dark:border-white/5 shadow-2xl">
+            <div className="relative bg-[#111114] w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[40px] border border-white/5 shadow-2xl">
               <button 
                 onClick={() => setSelectedAward(null)}
-                className="absolute top-8 right-8 p-2 rounded-full bg-slate-100 dark:bg-white/5 hover:bg-indigo-600 hover:text-white transition-all z-10"
+                className="absolute top-8 right-8 p-2 rounded-full bg-white/5 hover:bg-indigo-600 hover:text-white transition-all z-10"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -566,7 +588,7 @@ const App = () => {
                   <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-500">{selectedAward.type}</span>
                 </div>
                 
-                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight dark:text-white mb-2 leading-tight text-justify">
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-white mb-2 leading-tight text-justify">
                   {selectedAward.title}
                 </h2>
                 <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-10">
@@ -575,8 +597,8 @@ const App = () => {
 
                 <div className="grid md:grid-cols-12 gap-12">
                   <div className="md:col-span-7">
-                    <div className="prose prose-slate dark:prose-invert max-w-none">
-                      <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-400 font-medium whitespace-pre-line text-justify">
+                    <div className="prose prose-invert max-w-none">
+                      <p className="text-lg leading-relaxed text-slate-400 font-medium whitespace-pre-line text-justify">
                         {selectedAward.longDesc}
                       </p>
                     </div>
@@ -596,10 +618,10 @@ const App = () => {
                   </div>
 
                   <div className="md:col-span-5 space-y-8">
-                    <div className="p-8 rounded-3xl bg-slate-50 dark:bg-black/20 border border-slate-100 dark:border-white/5">
+                    <div className="p-8 rounded-3xl bg-black/20 border border-white/5">
                       <div className="flex items-center space-x-3 mb-6">
                         <Users className="w-5 h-5 text-indigo-500" />
-                        <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-900 dark:text-white">Team Members</h4>
+                        <h4 className="text-[10px] font-black uppercase tracking-widest text-white">Team Members</h4>
                       </div>
                       <ul className="space-y-3">
                         {selectedAward.team?.map((name, idx) => (
@@ -610,10 +632,10 @@ const App = () => {
                         ))}
                       </ul>
                       
-                      <div className="mt-8 pt-8 border-t border-slate-200 dark:border-white/5">
+                      <div className="mt-8 pt-8 border-t border-white/5">
                         <div className="flex items-center space-x-3 mb-4">
                           <Target className="w-5 h-5 text-indigo-500" />
-                          <h4 className="text-[10px] font-black uppercase tracking-widest text-slate-900 dark:text-white">Leadership / Mentor</h4>
+                          <h4 className="text-[10px] font-black uppercase tracking-widest text-white">Leadership / Mentor</h4>
                         </div>
                         <p className="text-sm font-bold">{selectedAward.mentor}</p>
                       </div>
@@ -621,17 +643,17 @@ const App = () => {
 
                     <div className="space-y-4">
                         {selectedAward.imageUrl && (
-                          <div className="rounded-3xl overflow-hidden border border-slate-200 dark:border-white/5">
+                          <div className="rounded-3xl overflow-hidden border border-white/5">
                             <img src={selectedAward.imageUrl} alt="Project primary" className="w-full h-auto" />
                           </div>
                         )}
                         {selectedAward.secondaryImageUrl && (
-                          <div className="rounded-3xl overflow-hidden border border-slate-200 dark:border-white/5">
+                          <div className="rounded-3xl overflow-hidden border border-white/5">
                             <img src={selectedAward.secondaryImageUrl} alt="Project secondary" className="w-full h-auto" />
                           </div>
                         )}
                         {selectedAward.tertiaryImageUrl && (
-                          <div className="rounded-3xl overflow-hidden border border-slate-200 dark:border-white/5">
+                          <div className="rounded-3xl overflow-hidden border border-white/5">
                             <img src={selectedAward.tertiaryImageUrl} alt="Project tertiary" className="w-full h-auto" />
                           </div>
                         )}
@@ -645,21 +667,21 @@ const App = () => {
       </section>
 
       {/* Projects */}
-      <section id="projects" className="py-20 px-8 bg-slate-50 dark:bg-[#0c0c0e]">
+      <section id="projects" className="py-20 px-8 bg-[#0c0c0e]">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-black tracking-tighter mb-3 dark:text-white uppercase">Selected Works</h2>
+            <h2 className="text-4xl font-black tracking-tighter mb-3 text-white uppercase">Selected Works</h2>
             <div className="h-1 w-12 bg-indigo-600 mx-auto rounded-full"></div>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {projects.map((p, i) => (
-              <div key={i} className={`group bg-white dark:bg-[#111114] border-2 ${p.color} p-8 rounded-[40px] transition-all hover:-translate-y-4 shadow-sm hover:shadow-2xl`}>
+              <div key={i} className={`group bg-[#111114] border-2 ${p.color} p-8 rounded-[40px] transition-all hover:-translate-y-4 shadow-sm hover:shadow-2xl`}>
                 <div className="flex justify-between items-start mb-6">
-                  <div className="p-3 bg-slate-50 dark:bg-white/5 rounded-2xl text-indigo-500"><Terminal className="w-5 h-5" /></div>
+                  <div className="p-3 bg-white/5 rounded-2xl text-indigo-500"><Terminal className="w-5 h-5" /></div>
                   <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{p.duration}</span>
                 </div>
-                <h3 className="text-xl font-bold mb-3 dark:text-white leading-tight text-justify">{p.title}</h3>
-                <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6 font-medium text-justify">{p.desc}</p>
+                <h3 className="text-xl font-bold mb-3 text-white leading-tight text-justify">{p.title}</h3>
+                <p className="text-slate-400 text-sm leading-relaxed mb-6 font-medium text-justify">{p.desc}</p>
                 <div className="flex flex-wrap gap-2">
                   {p.tech.map((t, idx) => (
                     <span key={idx} className="text-[9px] font-black uppercase text-indigo-500 border border-indigo-500/20 px-3 py-1 rounded-full">{t}</span>
@@ -675,9 +697,9 @@ const App = () => {
       <section id="about" className="py-20 px-8">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-5">
-            <div className="md:col-span-2 p-8 rounded-[40px] bg-white dark:bg-[#111114] border border-slate-100 dark:border-white/5 shadow-sm">
+            <div className="md:col-span-2 p-8 rounded-[40px] bg-[#111114] border border-white/5 shadow-sm">
               <h3 className="text-xs font-black text-indigo-500 uppercase tracking-widest mb-4">Education</h3>
-              <p className="text-xl font-bold mb-2 dark:text-white">Bachelor of Engineering, IT</p>
+              <p className="text-xl font-bold mb-2 text-white">Bachelor of Engineering, IT</p>
               <p className="text-slate-500 font-medium mb-4 text-sm">Mumbai University, Thakur College (TCET)</p>
               <div className="flex gap-10">
                 <div>
@@ -686,7 +708,7 @@ const App = () => {
                 </div>
                 <div>
                   <p className="text-[10px] font-black uppercase text-slate-400 mb-1">Graduation</p>
-                  <p className="text-lg font-black dark:text-white">June 2026</p>
+                  <p className="text-lg font-black text-white">June 2026</p>
                 </div>
               </div>
             </div>
@@ -694,24 +716,24 @@ const App = () => {
             <div className="md:col-span-2 p-8 rounded-[40px] bg-indigo-600 text-white flex flex-col justify-center shadow-lg shadow-indigo-500/20">
               <h4 className="text-[10px] font-black uppercase tracking-[0.3em] opacity-60 mb-3 text-white">Leadership</h4>
               <h3 className="text-xl font-black mb-3">Founder & Chairperson @ TechCatalyst SIG</h3>
-              <p className="text-xs opacity-80 leading-relaxed font-medium text-justify">Mentoring junior teams for national hackathons and organizing technical workshops in AI/ML & IoT.</p>
+              <p className="text-xs opacity-80 leading-relaxed font-medium text-justify">Mentoring junior teams for national hackathons and organizing technical workshops in AI/ML, IoT & Software Development.</p>
             </div>
 
-            <div className="md:col-span-2 p-8 rounded-[40px] bg-white dark:bg-[#111114] border border-slate-100 dark:border-white/5 shadow-sm">
+            <div className="md:col-span-2 p-8 rounded-[40px] bg-[#111114] border border-white/5 shadow-sm">
                <div className="flex items-center space-x-3 mb-4">
                   <BrainCircuit className="w-5 h-5 text-indigo-500" />
                   <h3 className="text-xs font-black text-indigo-500 uppercase tracking-widest">Artificial Intelligence</h3>
                </div>
                <div className="flex flex-wrap gap-2">
                  {aiStack.map((skill, i) => (
-                   <span key={i} className="px-4 py-2 rounded-xl bg-slate-50 dark:bg-white/5 text-[10px] font-bold border border-slate-100 dark:border-white/5 hover:border-indigo-500/50 transition-colors">
+                   <span key={i} className="px-4 py-2 rounded-2xl bg-black/40 text-[10px] font-bold border border-white/5 hover:border-indigo-500/50 transition-all text-white">
                      {skill}
                    </span>
                  ))}
                </div>
             </div>
 
-            <div className="md:col-span-2 p-8 rounded-[40px] bg-white dark:bg-[#111114] border border-slate-100 dark:border-white/5 shadow-sm">
+            <div className="md:col-span-2 p-8 rounded-[40px] bg-[#111114] border border-white/5 shadow-sm">
                <div className="flex items-center space-x-3 mb-4">
                   <Microscope className="w-5 h-5 text-indigo-500" />
                   <h3 className="text-xs font-black text-indigo-500 uppercase tracking-widest">Research Publications</h3>
@@ -723,15 +745,65 @@ const App = () => {
                     href={paper.link} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="block group p-3 rounded-2xl bg-slate-50 dark:bg-black/20 border border-transparent hover:border-indigo-500/50 transition-all"
+                    className="block group p-3 rounded-2xl bg-black/20 border border-transparent hover:border-indigo-500/50 transition-all"
                    >
                      <div className="flex justify-between items-start mb-1">
-                        <p className="text-[11px] font-bold dark:text-white leading-tight group-hover:text-indigo-500 transition-colors text-justify">{paper.title}</p>
+                        <p className="text-[11px] font-bold text-white leading-tight group-hover:text-indigo-500 transition-colors text-justify">{paper.title}</p>
                         <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-indigo-500 shrink-0 mt-1 ml-2" />
                      </div>
                      <p className="text-[9px] text-slate-500 font-medium">{paper.journal}</p>
                    </a>
                  ))}
+               </div>
+            </div>
+
+            {/* Technical Skills Card */}
+            <div className="md:col-span-4 p-8 rounded-[40px] bg-[#111114] border border-white/5 shadow-sm">
+               <div className="flex items-center space-x-3 mb-8">
+                  <Wrench className="w-5 h-5 text-indigo-500" />
+                  <h3 className="text-xs font-black text-indigo-500 uppercase tracking-widest">Technical Skills</h3>
+               </div>
+               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+                 <div>
+                   <p className="text-[10px] font-black uppercase text-slate-500 mb-4 tracking-[0.2em]">Languages</p>
+                   <div className="flex flex-wrap gap-2">
+                     {techSkills.languages.map((s, idx) => (
+                       <span key={idx} className="px-4 py-2 rounded-2xl bg-black/40 text-[10px] font-bold border border-white/5 hover:border-indigo-500/50 transition-all text-white">
+                         {s}
+                       </span>
+                     ))}
+                   </div>
+                 </div>
+                 <div>
+                   <p className="text-[10px] font-black uppercase text-slate-500 mb-4 tracking-[0.2em]">Frameworks</p>
+                   <div className="flex flex-wrap gap-2">
+                     {techSkills.frameworks.map((s, idx) => (
+                       <span key={idx} className="px-4 py-2 rounded-2xl bg-black/40 text-[10px] font-bold border border-white/5 hover:border-indigo-500/50 transition-all text-white">
+                         {s}
+                       </span>
+                     ))}
+                   </div>
+                 </div>
+                 <div>
+                   <p className="text-[10px] font-black uppercase text-slate-500 mb-4 tracking-[0.2em]">Databases</p>
+                   <div className="flex flex-wrap gap-2">
+                     {techSkills.databases.map((s, idx) => (
+                       <span key={idx} className="px-4 py-2 rounded-2xl bg-black/40 text-[10px] font-bold border border-white/5 hover:border-indigo-500/50 transition-all text-white">
+                         {s}
+                       </span>
+                     ))}
+                   </div>
+                 </div>
+                 <div>
+                   <p className="text-[10px] font-black uppercase text-slate-500 mb-4 tracking-[0.2em]">Developer Tools</p>
+                   <div className="flex flex-wrap gap-2">
+                     {techSkills.tools.map((s, idx) => (
+                       <span key={idx} className="px-4 py-2 rounded-2xl bg-black/40 text-[10px] font-bold border border-white/5 hover:border-indigo-500/50 transition-all text-white">
+                         {s}
+                       </span>
+                     ))}
+                   </div>
+                 </div>
                </div>
             </div>
           </div>
@@ -742,25 +814,25 @@ const App = () => {
       <section id="contact" className="py-20 px-8">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16">
           <div>
-            <h2 className="text-5xl font-black tracking-tighter mb-8 dark:text-white uppercase leading-none">Get In <br/> Touch.</h2>
+            <h2 className="text-5xl font-black tracking-tighter mb-8 text-white uppercase leading-none">Get In <br/> Touch.</h2>
             <div className="space-y-8">
               <div className="flex items-center space-x-5 group cursor-pointer">
-                <div className="w-12 h-12 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center text-indigo-500 group-hover:bg-indigo-500 group-hover:text-white transition-all"><Mail className="w-5 h-5"/></div>
+                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-indigo-500 group-hover:bg-indigo-500 group-hover:text-white transition-all"><Mail className="w-5 h-5"/></div>
                 <div>
                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Email</p>
-                  <p className="text-lg font-bold dark:text-white">jadhavmann.mj@gmail.com</p>
+                  <p className="text-lg font-bold text-white">jadhavmann.mj@gmail.com</p>
                 </div>
               </div>
               <div className="flex items-center space-x-5 group cursor-pointer">
-                <div className="w-12 h-12 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center text-indigo-500 group-hover:bg-indigo-500 group-hover:text-white transition-all"><MapPin className="w-5 h-5"/></div>
+                <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-indigo-500 group-hover:bg-indigo-500 group-hover:text-white transition-all"><MapPin className="w-5 h-5"/></div>
                 <div>
                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Base</p>
-                  <p className="text-lg font-bold dark:text-white">Mumbai, India</p>
+                  <p className="text-lg font-bold text-white">Mumbai, India</p>
                 </div>
               </div>
             </div>
           </div>
-          <div className="bg-slate-50 dark:bg-[#111114] p-10 rounded-[50px] border border-slate-200 dark:border-white/5 shadow-sm">
+          <div className="bg-[#111114] p-10 rounded-[50px] border border-white/5 shadow-sm">
             <form className="space-y-6" onSubmit={handleFormSubmit}>
                <div className="grid md:grid-cols-2 gap-6">
                  <div className="space-y-2">
@@ -770,7 +842,7 @@ const App = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full bg-white dark:bg-black/40 border-none rounded-2xl px-5 py-3 text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all" 
+                    className="w-full bg-black/40 border-none rounded-2xl px-5 py-3 text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all" 
                     placeholder="John Doe" 
                    />
                  </div>
@@ -782,7 +854,7 @@ const App = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full bg-white dark:bg-black/40 border-none rounded-2xl px-5 py-3 text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all" 
+                    className="w-full bg-black/40 border-none rounded-2xl px-5 py-3 text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all" 
                     placeholder="john@company.com" 
                    />
                  </div>
@@ -794,7 +866,7 @@ const App = () => {
                     value={formData.message}
                     onChange={handleInputChange}
                     rows="3"
-                    className="w-full bg-white dark:bg-black/40 border-none rounded-2xl px-5 py-3 text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all resize-none" 
+                    className="w-full bg-black/40 border-none rounded-2xl px-5 py-3 text-sm font-bold focus:ring-2 focus:ring-indigo-500 transition-all resize-none" 
                     placeholder="Write your message here..."
                   />
                </div>
@@ -827,15 +899,14 @@ const App = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-white dark:bg-[#08080a] pt-20 pb-12 px-8 border-t border-slate-200 dark:border-white/5 overflow-hidden">
+      <footer className="bg-[#08080a] pt-20 pb-12 px-8 border-t border-white/5 overflow-hidden">
         <div className="max-w-7xl mx-auto">
-          {/* Footer Header/CTA */}
           <div className="grid lg:grid-cols-2 gap-12 mb-16 items-end">
             <div>
-              <h2 className="text-4xl md:text-6xl font-black tracking-tighter dark:text-white uppercase mb-6 leading-none">
+              <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white uppercase mb-6 leading-none">
                 Let's Build <br/> The Future.
               </h2>
-              <p className="text-slate-500 dark:text-slate-400 text-base max-w-md font-medium leading-relaxed">
+              <p className="text-slate-400 text-base max-w-md font-medium leading-relaxed">
                 Currently open to industrial project collaborations and deep learning research opportunities.
               </p>
             </div>
@@ -858,7 +929,7 @@ const App = () => {
                     href={social.link} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-500 hover:text-indigo-500 hover:border-indigo-500/50 hover:bg-indigo-500/5 transition-all"
+                    className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-slate-500 hover:text-indigo-500 hover:border-indigo-500/50 hover:bg-indigo-500/5 transition-all"
                     title={social.name}
                   >
                     {social.icon}
@@ -868,11 +939,11 @@ const App = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16 pt-12 border-t border-slate-200 dark:border-white/5">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16 pt-12 border-t border-white/5">
             <div className="col-span-2 md:col-span-1">
               <div className="flex items-center space-x-2 mb-6">
                 <div className="w-7 h-7 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-black text-xs">MJ</div>
-                <span className="text-[10px] font-black tracking-widest uppercase dark:text-white">Mann Jadhav</span>
+                <span className="text-[10px] font-black tracking-widest uppercase text-white">Mann Jadhav</span>
               </div>
               <p className="text-[10px] font-medium text-slate-500 leading-relaxed uppercase tracking-widest">
                 Software Engineer & ML Researcher based in Mumbai. Specializing in high-performance web systems and intelligence.
@@ -906,7 +977,7 @@ const App = () => {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-slate-200 dark:border-white/5">
+          <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5">
             <div className="text-[8px] font-black tracking-[0.3em] uppercase text-slate-500 mb-6 md:mb-0">
               © 2026 MANN JADHAV. ALL RIGHTS RESERVED. DESIGNED & DEVELOPED WITH PRECISION.
             </div>
@@ -915,7 +986,7 @@ const App = () => {
               className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors group"
             >
               <span>Elevate to top</span>
-              <div className="w-8 h-8 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center group-hover:bg-indigo-600 group-hover:border-indigo-600 transition-all shadow-lg">
+              <div className="w-8 h-8 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-indigo-600 group-hover:border-indigo-600 transition-all shadow-lg">
                 <ArrowUp className="w-3 h-3 group-hover:-translate-y-1 transition-transform" />
               </div>
             </button>
