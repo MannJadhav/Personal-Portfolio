@@ -264,7 +264,7 @@ const App = () => {
       type: "Hackathon",
       title: "MumbaiHacks 2025",
       subtitle: "NESCO | Nov 25",
-      desc: "Winner of the largest AI Agentic Hackathon. Developed ORION — a structural forensics tool to combat misinformation.",
+      desc: "Finalist of the largest AI Agentic Hackathon. Developed ORION — a structural forensics tool to combat misinformation.",
       icon: <Sparkles className="w-5 h-5" />,
       buttonText: "View Details",
       style: "light",
