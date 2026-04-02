@@ -960,14 +960,6 @@ const App = () => {
               </ul>
             </div>
             <div>
-              <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-500 mb-6">Legal & Docs</h4>
-              <ul className="space-y-3">
-                <li><button className="text-[10px] font-bold text-slate-400 hover:text-indigo-500 transition-colors text-left uppercase">Download Resume</button></li>
-                <li><a href="#" className="text-[10px] font-bold text-slate-400 hover:text-indigo-500 transition-colors uppercase">Transcript</a></li>
-                <li><a href="#" className="text-[10px] font-bold text-slate-400 hover:text-indigo-500 transition-colors uppercase">Privacy Policy</a></li>
-              </ul>
-            </div>
-            <div>
               <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-500 mb-6">Base</h4>
               <div className="space-y-2 text-[10px] font-bold text-slate-400">
                 <p>Thakur College of Engineering & Tech</p>
@@ -978,9 +970,6 @@ const App = () => {
           </div>
 
           <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/5">
-            <div className="text-[8px] font-black tracking-[0.3em] uppercase text-slate-500 mb-6 md:mb-0">
-              © 2026 MANN JADHAV. ALL RIGHTS RESERVED. DESIGNED & DEVELOPED WITH PRECISION.
-            </div>
             <button 
               onClick={(e) => scrollToSection(e, 'home')}
               className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-white transition-colors group"
