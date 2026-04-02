@@ -717,6 +717,7 @@ const App = () => {
               <h4 className="text-[10px] font-black uppercase tracking-[0.3em] opacity-60 mb-3 text-white">Leadership</h4>
               <h3 className="text-xl font-black mb-3">Founder & Chairperson @ TechCatalyst SIG</h3>
               <p className="text-xs opacity-80 leading-relaxed font-medium text-justify">Mentoring junior teams for national hackathons and organizing technical workshops in AI/ML, IoT & Software Development.</p>
+              <b><h6>June'24 - June'25</h6></b>
             </div>
 
             <div className="md:col-span-2 p-8 rounded-[40px] bg-[#111114] border border-white/5 shadow-sm">
