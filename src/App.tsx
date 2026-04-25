@@ -176,32 +176,17 @@ const App = () => {
 
   const awards = [
     {
-  id: 1,
-  type: "Best Paper",
-  title: "\" Fraud Detection in Financial Transactions using Machine Learning\"",
-  subtitle: "TCET Mumbai | Feb'25",
-  desc: "Research Excellence @ Multicon 2025. Recognized for innovative deep learning approaches in anomaly detection.",
-  icon: <Trophy className="w-5 h-5" />,
-  buttonText: "Read Publication",
-  style: "light",
-  imageUrl: "https://lh3.googleusercontent.com/pw/AP1GczNRFNwACA2F51-Lmiu9rEMnOYF1cLzcjZKYw35iU2XbcL2xAVi8TA5b4ouLrX9hTB0KTfcuY3Pb5WnFK-vjKmnEJFOm1xnxHGECzvvibpBz9TPYYcyx1qC3ZHbl_rcexqXLNdaZPu5a_ss_DRm8kKwp1A=w1145-h859-s-no-gm",
-  link: "https://www.researchgate.net/publication/401204164_Fraud_Detection_in_Financial_Transactions_using_Machine_Learning",
-  hasDetails: true,
-  longDescStructured: {
-    abstract: "This paper presents a novel approach to fraud detection in financial transactions using machine learning techniques. We propose an ensemble model that combines Random Forest, Convolutional Neural Networks (CNN), and Support Vector Machines (SVM) to achieve high accuracy in identifying fraudulent activities. The model is trained and evaluated on a large dataset of financial transactions, demonstrating its effectiveness in real-world scenarios.",
-    methodology: "The proposed ensemble model consists of three components: Random Forest for feature selection, CNN for pattern recognition, and SVM for classification. We preprocess the dataset by handling class imbalance using SMOTE and perform feature engineering to extract relevant features. The model is trained using cross-validation to ensure robustness.",
-    Results: "Our experimental results show that the ensemble model achieves an accuracy of 98.5%, outperforming individual models and existing benchmarks. The model also demonstrates a low false positive rate, making it suitable for deployment in financial institutions.",
-    Conclusion: "The proposed machine learning approach provides an effective solution for fraud detection in financial transactions. Future work includes exploring additional features and incorporating real-time detection capabilities.", // Added missing comma here
-    tools: [ 
-      "Language: Python",
-      "Dataset: Credit Card Fraud Detection Dataset from Kaggle",
-      "Libraries: TensorFlow, Scikit-Learn, Pandas, NumPy, Matplotlib",
-      "Algorithms: Convolution Neural Networks (CNN), Long Short-Term Memory (LSTM), Random Forest, Support Vector Machine (SVM)",
-      "Environment: Google Colab"
-    ]
-  },
-  team: ["Mann Jadhav", "Isha Kondurkar"] // Removed the extra brace that was here
-},
+      id: 1,
+      type: "Best Paper",
+      title: "\"Fraud Detection in Financial Transactions using Machine Learning\"",
+      subtitle: "TCET Mumbai | Feb'25",
+      desc: "Research Excellence @ Multicon 2025. Recognized for innovative deep learning approaches in anomaly detection.",
+      icon: <Trophy className="w-5 h-5" />,
+      buttonText: "Read Publication",
+      style: "light",
+      imageUrl: "https://lh3.googleusercontent.com/pw/AP1GczNRFNwACA2F51-Lmiu9rEMnOYF1cLzcjZKYw35iU2XbcL2xAVi8TA5b4ouLrX9hTB0KTfcuY3Pb5WnFK-vjKmnEJFOm1xnxHGECzvvibpBz9TPYYcyx1qC3ZHbl_rcexqXLNdaZPu5a_ss_DRm8kKwp1A=w1145-h859-s-no-gm",
+      link: "https://www.researchgate.net/publication/401204164_Fraud_Detection_in_Financial_Transactions_using_Machine_Learning" 
+    },
     {
       id: 2,
       type: "Project competition",
@@ -584,134 +569,101 @@ const App = () => {
 
         {/* Details Modal */}
         {selectedAward && (
-  <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
-    <div 
-      className="absolute inset-0 bg-[#0a0a0c]/95 backdrop-blur-xl"
-      onClick={() => setSelectedAward(null)}
-    ></div>
-    <div className="relative bg-[#111114] w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-[40px] border border-white/5 shadow-2xl">
-      <button 
-        onClick={() => setSelectedAward(null)}
-        className="absolute top-8 right-8 p-2 rounded-full bg-white/5 hover:bg-indigo-600 hover:text-white transition-all z-20"
-      >
-        <X className="w-5 h-5" />
-      </button>
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
+            <div 
+              className="absolute inset-0 bg-[#0a0a0c]/90 backdrop-blur-md"
+              onClick={() => setSelectedAward(null)}
+            ></div>
+            <div className="relative bg-[#111114] w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[40px] border border-white/5 shadow-2xl">
+              <button 
+                onClick={() => setSelectedAward(null)}
+                className="absolute top-8 right-8 p-2 rounded-full bg-white/5 hover:bg-indigo-600 hover:text-white transition-all z-10"
+              >
+                <X className="w-5 h-5" />
+              </button>
 
-      <div className="p-8 md:p-14">
-        <div className="grid lg:grid-cols-12 gap-12">
-          
-          {/* Left Column: Content */}
-          <div className="lg:col-span-7">
-            <div className="inline-flex items-center space-x-3 mb-6">
-              <div className="text-indigo-500">{selectedAward.icon}</div>
-              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-500">{selectedAward.type}</span>
-            </div>
-            
-            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-2 leading-tight">
-              {selectedAward.title}
-            </h2>
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-10">
-              {selectedAward.subtitle}
-            </p>
-
-            <div className="space-y-8 text-slate-300 font-medium">
-              {selectedAward.longDescStructured ? (
-                <>
-                  {/* DYNAMIC SECTION RENDERING */}
-                  {selectedAward.longDescStructured.abstract && (
-                    <div className="space-y-2">
-                      <h4 className="text-white font-bold uppercase text-[11px] tracking-widest flex items-center gap-2">
-                         <BookOpen className="w-4 h-4 text-indigo-500" /> Abstract
-                      </h4>
-                      <p className="text-slate-400 leading-relaxed text-justify">{selectedAward.longDescStructured.abstract}</p>
-                    </div>
-                  )}
-
-                  {selectedAward.longDescStructured.methodology && (
-                    <div className="space-y-2">
-                      <h4 className="text-white font-bold uppercase text-[11px] tracking-widest flex items-center gap-2">
-                         <Layers className="w-4 h-4 text-indigo-500" /> Methodology
-                      </h4>
-                      <p className="text-slate-400 leading-relaxed text-justify">{selectedAward.longDescStructured.methodology}</p>
-                    </div>
-                  )}
-
-                  {/* Standard fallback for Mind's Eye Style (Intro/Objective) */}
-                  {selectedAward.longDescStructured.intro && <p className="text-lg leading-relaxed">{selectedAward.longDescStructured.intro}</p>}
-                  
-                  {selectedAward.longDescStructured.objective && (
-                    <div className="space-y-2">
-                      <h4 className="text-white font-bold uppercase text-[11px] tracking-widest flex items-center gap-2">
-                         <Target className="w-4 h-4 text-indigo-500" /> Objective
-                      </h4>
-                      <p className="text-slate-400 border-l-2 border-indigo-500/20 pl-4 text-justify">{selectedAward.longDescStructured.objective}</p>
-                    </div>
-                  )}
-
-                  <div className="space-y-3">
-                    <h4 className="text-white font-bold uppercase text-[11px] tracking-widest flex items-center gap-2">
-                       <Cpu className="w-4 h-4 text-indigo-500" /> Tools & Tech
-                    </h4>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-2 pl-4 border-l-2 border-indigo-500/20">
-                      {selectedAward.longDescStructured.tools.map((tool, idx) => (
-                        <li key={idx} className="text-sm text-slate-400 flex items-start gap-2">
-                          <span className="text-indigo-500 mt-1.5 w-1 h-1 rounded-full bg-indigo-500 shrink-0" />
-                          {tool}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </>
-              ) : (
-                <p className="text-lg leading-relaxed whitespace-pre-line text-justify">{selectedAward.longDesc}</p>
-              )}
-            </div>
-          </div>
-
-          {/* Right Column: Sidebar */}
-          <div className="lg:col-span-5 space-y-8">
-            <div className="p-8 rounded-[32px] bg-black/40 border border-white/5">
-              <div className="flex items-center space-x-3 mb-6">
-                <Users className="w-5 h-5 text-indigo-500" />
-                <h4 className="text-[10px] font-black uppercase tracking-widest text-white">Authors / Team</h4>
-              </div>
-              <ul className="space-y-4 mb-8">
-                {selectedAward.team?.map((name, idx) => (
-                  <li key={idx} className="text-sm font-bold flex items-center space-x-3 text-slate-200">
-                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 shadow-[0_0_8px_rgba(79,70,229,0.6)]"></div>
-                    <span>{name}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="pt-6 border-t border-white/5">
-                <div className="flex items-center space-x-3 mb-4">
-                  <User className="w-5 h-5 text-indigo-500" />
-                  <h4 className="text-[10px] font-black uppercase tracking-widest text-white">Mentor</h4>
+              <div className="p-8 md:p-12">
+                <div className="inline-flex items-center space-x-3 mb-6">
+                  <div className="text-indigo-500">{selectedAward.icon}</div>
+                  <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-500">{selectedAward.type}</span>
                 </div>
-                <p className="text-sm font-bold text-indigo-400">{selectedAward.mentor}</p>
+                
+                <h2 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-white mb-2 leading-tight text-justify">
+                  {selectedAward.title}
+                </h2>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-10">
+                  {selectedAward.subtitle}
+                </p>
+
+                <div className="grid md:grid-cols-12 gap-12">
+                  <div className="md:col-span-7">
+                    <div className="prose prose-invert max-w-none">
+                      <p className="text-lg leading-relaxed text-slate-400 font-medium whitespace-pre-line text-justify">
+                        {selectedAward.longDesc}
+                      </p>
+                    </div>
+                    {selectedAward.link && selectedAward.link !== '#' && (
+                      <div className="mt-12">
+                        <a 
+                          href={selectedAward.link} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center space-x-3 px-8 py-4 bg-indigo-600 text-white rounded-2xl font-black uppercase tracking-widest text-[10px] hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-500/20"
+                        >
+                          <Play className="w-4 h-4" />
+                          <span>View Demo / Resource</span>
+                        </a>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="md:col-span-5 space-y-8">
+                    <div className="p-8 rounded-3xl bg-black/20 border border-white/5">
+                      <div className="flex items-center space-x-3 mb-6">
+                        <Users className="w-5 h-5 text-indigo-500" />
+                        <h4 className="text-[10px] font-black uppercase tracking-widest text-white">Team Members</h4>
+                      </div>
+                      <ul className="space-y-3">
+                        {selectedAward.team?.map((name, idx) => (
+                          <li key={idx} className="text-sm font-bold flex items-center space-x-2">
+                            <span className="w-1.5 h-1.5 rounded-full bg-indigo-500"></span>
+                            <span>{name}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      
+                      <div className="mt-8 pt-8 border-t border-white/5">
+                        <div className="flex items-center space-x-3 mb-4">
+                          <Target className="w-5 h-5 text-indigo-500" />
+                          <h4 className="text-[10px] font-black uppercase tracking-widest text-white">Leadership / Mentor</h4>
+                        </div>
+                        <p className="text-sm font-bold">{selectedAward.mentor}</p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4">
+                        {selectedAward.imageUrl && (
+                          <div className="rounded-3xl overflow-hidden border border-white/5">
+                            <img src={selectedAward.imageUrl} alt="Project primary" className="w-full h-auto" />
+                          </div>
+                        )}
+                        {selectedAward.secondaryImageUrl && (
+                          <div className="rounded-3xl overflow-hidden border border-white/5">
+                            <img src={selectedAward.secondaryImageUrl} alt="Project secondary" className="w-full h-auto" />
+                          </div>
+                        )}
+                        {selectedAward.tertiaryImageUrl && (
+                          <div className="rounded-3xl overflow-hidden border border-white/5">
+                            <img src={selectedAward.tertiaryImageUrl} alt="Project tertiary" className="w-full h-auto" />
+                          </div>
+                        )}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-
-            <div className="space-y-6 text-center">
-                {selectedAward.imageUrl && (
-                  <div className="rounded-[24px] overflow-hidden border border-white/5 shadow-2xl">
-                    <img src={selectedAward.imageUrl} alt="Publication" className="w-full h-auto" />
-                  </div>
-                )}
-                {selectedAward.link && (
-                  <a href={selectedAward.link} target="_blank" rel="noopener noreferrer" className="inline-flex w-full items-center justify-between p-4 bg-indigo-600 rounded-2xl hover:bg-indigo-700 transition-all text-white group">
-                    <span className="text-[10px] font-black uppercase tracking-widest">Full Publication</span>
-                    <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </a>
-                )}
-            </div>
           </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-)}
+        )}
       </section>
 
       {/* Projects */}
