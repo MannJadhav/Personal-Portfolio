@@ -175,17 +175,23 @@ const App = () => {
   ];
 
   const awards = [
-    {
+   {
       id: 1,
       type: "Best Paper",
-      title: "\"Fraud Detection in Financial Transactions using Machine Learning\"",
+      title: "\" Fraud Detection in Financial Transactions using Machine Learning\"",
       subtitle: "TCET Mumbai | Feb'25",
       desc: "Research Excellence @ Multicon 2025. Recognized for innovative deep learning approaches in anomaly detection.",
       icon: <Trophy className="w-5 h-5" />,
-      buttonText: "Read Publication",
+      buttonText: "Read Publication", 
       style: "light",
       imageUrl: "https://lh3.googleusercontent.com/pw/AP1GczNRFNwACA2F51-Lmiu9rEMnOYF1cLzcjZKYw35iU2XbcL2xAVi8TA5b4ouLrX9hTB0KTfcuY3Pb5WnFK-vjKmnEJFOm1xnxHGECzvvibpBz9TPYYcyx1qC3ZHbl_rcexqXLNdaZPu5a_ss_DRm8kKwp1A=w1145-h859-s-no-gm",
-      link: "https://www.researchgate.net/publication/401204164_Fraud_Detection_in_Financial_Transactions_using_Machine_Learning" 
+      link: "https://www.researchgate.net/publication/401204164_Fraud_Detection_in_Financial_Transactions_using_Machine_Learning",
+      hasDetails: true,
+      longDesc: `
+        The paper "Fraud Detection in Financial Transactions using Machine Learning" was awarded Best Paper at the International Conference on Computer Networks (IC-ICN) 2025, held at Thakur College of Engineering and Technology (TCET), Mumbai. This recognition highlights the innovative application of machine learning techniques to identify and prevent fraudulent activities in financial transactions. The research presented novel approaches to anomaly detection, leveraging deep learning models to enhance accuracy and efficiency in fraud detection systems. The paper's contribution to the field of fintech and cybersecurity was acknowledged by experts in the domain, making it a significant milestone in my academic and research journey.
+      `,
+      team : ["Mann Jadhav", "Isha Kondurkar"],
+      secondaryImageUrl: "https://lh3.googleusercontent.com/pw/AP1GczOVKmYlup3GZlztRCtr2xa3wjHVz5msNYBzmCjI1KBGLMMnpfNQHFb70mU8K8n7YAKlfAHz8KuHSYIwmU-JKc6sPpt5z9iM-oiRv2GlMsMTPoT6WZ-o6r96i_YDcHngu8QhKIU2bsYeixdwJn4FBSJDkA=w641-h855-s-no-gm"
     },
     {
       id: 2,
