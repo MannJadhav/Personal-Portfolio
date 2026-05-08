@@ -436,8 +436,8 @@ const App = () => {
                 <div className="absolute inset-0 bg-indigo-600 rounded-[60px] rotate-6 group-hover:rotate-3 transition-transform opacity-10"></div>
                 <div className="relative aspect-[4/5] rounded-[60px] bg-[#151518] border border-white/5 overflow-hidden flex items-center justify-center">
                    <img 
-                    src="https://lh3.googleusercontent.com/pw/AP1GczNdqpOh72vezrDoZDgd8zJMeqldE0K-P8f8WtBecYhPCa5jC6fD2I94d-y3GScvCrk-kRTkAx5TzpyKfN8pN_XS9-QsQNu1ISwqAAtWR0r_9N3xLX827K6cL7oqtTnxHOfqdDEtgildHMJK85MEhsHfZw=w859-h859-s-no-gm" 
-                    alt="Mann Jadhav" 
+                    src="https://lh3.googleusercontent.com/pw/AP1GczN1gC1v4cENGYOIkhgX9Ph-NiHaOw5t0vOm47nW_wmRNp350C1QwMOKjpRAWQcq4RRn_F20GxtcLIszckkUvci40d5e7RBaQcoUFMwQZhbO19gdB5Q9up4O7Oi6vvIPM7imwOVemJ5P424IsMALZGScVw=w1344-h796-s-no-gm" 
+                    alt="Mann Jadhav." 
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
                    />
                    <div className="absolute bottom-8 left-8 right-8 bg-black/50 backdrop-blur-xl p-5 rounded-3xl border border-white/10">
