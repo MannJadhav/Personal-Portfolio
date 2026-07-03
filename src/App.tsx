@@ -422,7 +422,7 @@ const App = () => {
                 SOFTWARE <br/> ENGINEER <br/> <span className="text-indigo-600">& RESEARCHER.</span>
               </h1>
               <p className="text-lg text-slate-400 max-w-xl leading-relaxed mb-10 font-medium text-justify">
-               Software Engineer and Researcher. Recent IT graduate from TCET Mumbai specializing in high-performance web architecture and deep learning applications.
+               Software Engineer and Researcher. Recent IT graduate from the University of Mumbai specializing in high-performance web architecture and deep learning applications.
               </p>
               <div className="flex wrap gap-6">
                 <button onClick={(e) => scrollToSection(e, 'projects')} className="px-8 py-4 bg-indigo-600 text-white text-xs font-black uppercase tracking-[0.2em] rounded-full hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-500/20">
