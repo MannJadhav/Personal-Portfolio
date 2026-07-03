@@ -422,8 +422,7 @@ const App = () => {
                 SOFTWARE <br/> ENGINEER <br/> <span className="text-indigo-600">& RESEARCHER.</span>
               </h1>
               <p className="text-lg text-slate-400 max-w-xl leading-relaxed mb-10 font-medium text-justify">
-                Information Technology student at <span className="font-bold text-white underline decoration-indigo-500 decoration-2 underline-offset-4">TCET Mumbai</span>. 
-                Specializing in building high-performance web systems and deep learning applications.
+               Software Engineer and Researcher. Recent IT graduate from TCET Mumbai specializing in high-performance web architecture and deep learning applications.
               </p>
               <div className="flex wrap gap-6">
                 <button onClick={(e) => scrollToSection(e, 'projects')} className="px-8 py-4 bg-indigo-600 text-white text-xs font-black uppercase tracking-[0.2em] rounded-full hover:bg-indigo-700 transition-all shadow-xl shadow-indigo-500/20">
@@ -449,7 +448,7 @@ const App = () => {
                            <div className="w-2 h-2 rounded-full bg-indigo-300"></div>
                          </div>
                       </div>
-                      <p className="text-sm font-bold truncate tracking-tight text-white">Just Graduated</p>
+                      <p className="text-sm font-bold truncate tracking-tight text-white"><i>Open to software engineering roles.</i></p>
                       <p className="text-[10px] text-slate-500 font-medium">Mumbai, India</p>
                    </div>
                 </div>
