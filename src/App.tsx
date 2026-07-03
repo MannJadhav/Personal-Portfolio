@@ -178,7 +178,7 @@ const App = () => {
    {
       id: 1,
       type: "Best Paper",
-      title: "\" Fraud Detection in Financial Transactions using Machine Learning"
+      title: "\" Fraud Detection in Financial Transactions using Machine Learning\"",
       subtitle: "TCET Mumbai | Feb'25",
       desc: "Research Excellence @ Multicon 2025. Recognized for innovative deep learning approaches in anomaly detection.",
       icon: <Trophy className="w-5 h-5" />,
