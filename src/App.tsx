@@ -128,21 +128,21 @@ const App = () => {
 
   const experience = [
     {
-      year: "2026 - Present",
+      year: "Jan 2026 - June 2026",
       role: "Web Development Intern",
       company: "CITTA Technologies Pvt Ltd",
       location: "Mumbai, IN",
       desc: "Leading the development of 'Elevate Digital'. Focusing on interactive workflow architecture and SEO-performance optimization using React and Tailwind CSS."
     },
     {
-      year: "2024 - 2025",
+      year: "Dec 2024 - Jan 2025",
       role: "Full Stack Developer Intern",
       company: "Devion X Technologies",
       location: "Mumbai, IN",
       desc: "Modernized application UI using React.js. Engineered backend integration with Node.js/Express and implemented RESTful APIs to reduce latency by 30%."
     },
     {
-      year: "2024",
+      year: "Sep 2024 - Dec 2024",
       role: "Front-End Developer",
       company: "Uuns (Freelance)",
       location: "Remote",
@@ -178,7 +178,7 @@ const App = () => {
    {
       id: 1,
       type: "Best Paper",
-      title: "\" Fraud Detection in Financial Transactions using Machine Learning\"",
+      title: "\" Fraud Detection in Financial Transactions using Machine Learning"
       subtitle: "TCET Mumbai | Feb'25",
       desc: "Research Excellence @ Multicon 2025. Recognized for innovative deep learning approaches in anomaly detection.",
       icon: <Trophy className="w-5 h-5" />,
@@ -325,9 +325,9 @@ const App = () => {
         3. Displaying Various Government health related Schemes and insurance.
         4. Electronic Health Record (EHR).
 
-        ● Below are Our Innovation in this project and still it is under development process:
+        ● Below are our innovations in this project, and it is still in the development process:
         1. AI Chat Bot.
-        2. Real Time Ambulance tracking. 
+        2. Real-time ambulance tracking. 
         3. Web App.
 
         It was truly a testament to the power of collaboration, as each team member brought their unique strengths to the table.
@@ -448,7 +448,7 @@ const App = () => {
                            <div className="w-2 h-2 rounded-full bg-indigo-300"></div>
                          </div>
                       </div>
-                      <p className="text-sm font-bold truncate tracking-tight text-white">Internship @ CITTA Tech</p>
+                      <p className="text-sm font-bold truncate tracking-tight text-white">Just Graduated</p>
                       <p className="text-[10px] text-slate-500 font-medium">Mumbai, India</p>
                    </div>
                 </div>
@@ -710,7 +710,7 @@ const App = () => {
               <div className="flex gap-10">
                 <div>
                   <p className="text-[10px] font-black uppercase text-slate-400 mb-1">CGPA</p>
-                  <p className="text-lg font-black text-indigo-600">7.89 / 10</p>
+                  <p className="text-lg font-black text-indigo-600">8.14 / 10</p>
                 </div>
                 <div>
                   <p className="text-[10px] font-black uppercase text-slate-400 mb-1">Graduation</p>
